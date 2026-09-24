@@ -8,9 +8,6 @@ class PagesController < ApplicationController
   def bord
   end
 
-  def agenda
-  end
-
   def over
   end
 end
