@@ -8,10 +8,13 @@ Rails.application.routes.draw do
   get "bestanden-delen"  => "pages#bestanden_delen",  as: :bestanden_delen
   get "over"             => "pages#over",             as: :over
 
-  # Captive portal redirects for Android, Apple, and Windows connectivity checks
-  get "/generate_204",        to: redirect("/")
-  get "/hotspot-detect.html", to: redirect("/")
-  get "/canonicalhtml",       to: redirect("/")
+# Captive portal redirects for Android, Apple, Windows, and Linux connectivity checks
+  get "/generate_204",              to: redirect("/")
+  get "/hotspot-detect.html",       to: redirect("/")
+  get "/canonicalhtml",             to: redirect("/")
+  get "/connecttest.txt",           to: redirect("/")   # Windows NCSI
+  get "/ncsi.txt",                  to: redirect("/")   # Windows NCSI legacy
+  get "/success.txt",               to: redirect("/")   # Firefox
 
   # Catch-all: redirect unknown paths to root (must be last)
   match "*path", to: redirect("/"), via: :all

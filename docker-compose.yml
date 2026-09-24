@@ -1,0 +1,41 @@
+services:
+  buurtbox:
+    build: .
+    ports:
+      - "80:80"
+    environment:
+      RAILS_ENV: production
+      RAILS_MASTER_KEY: "${RAILS_MASTER_KEY}"
+      RAILS_LOG_LEVEL: info
+    volumes:
+      - buurtbox_storage:/rails/storage
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/up"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  kiwix:
+    image: ghcr.io/kiwix/kiwix-serve
+    command: --port 8080 /data/*.zim
+    ports:
+      - "8080:8080"
+    volumes:
+      - "${ZIM_PATH:-./zim}:/data"
+    restart: unless-stopped
+
+  pairdrop:
+    image: lscr.io/linuxserver/pairdrop:latest
+    environment:
+      PUID: "1000"
+      PGID: "1000"
+      TZ: Europe/Amsterdam
+      RATE_LIMIT: "false"
+      WS_FALLBACK: "true"
+    ports:
+      - "3001:3000"
+    restart: unless-stopped
+
+volumes:
+  buurtbox_storage:
