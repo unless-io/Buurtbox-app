@@ -39,5 +39,31 @@ services:
       - "3001:3000"
     restart: unless-stopped
 
+  kanboard:
+    image: kanboard/kanboard:latest
+    ports:
+      - "8090:80"
+    volumes:
+      - kanboard_data:/var/www/app/data
+      - kanboard_plugins:/var/www/app/plugins
+    restart: unless-stopped
+
+  nextcloud:
+    image: nextcloud:latest
+    ports:
+      - "8092:80"
+    environment:
+      # SQLite is sufficient for a small neighbourhood group
+      SQLITE_DATABASE: nextcloud
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: "${NEXTCLOUD_ADMIN_PASSWORD:-buurtbox}"
+      NEXTCLOUD_TRUSTED_DOMAINS: "buurtbox.local 192.168.4.1 localhost"
+    volumes:
+      - nextcloud_data:/var/www/html
+    restart: unless-stopped
+
 volumes:
   buurtbox_storage:
+  kanboard_data:
+  kanboard_plugins:
+  nextcloud_data:

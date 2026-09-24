@@ -5,6 +5,12 @@ class PagesController < ApplicationController
   def bestanden_delen
   end
 
+  def bord
+  end
+
+  def agenda
+  end
+
   def over
   end
 end

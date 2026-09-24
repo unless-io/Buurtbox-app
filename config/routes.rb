@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   get "bibliotheek"      => "pages#bibliotheek",      as: :bibliotheek
   get "bestanden-delen"  => "pages#bestanden_delen",  as: :bestanden_delen
+  get "bord"             => "pages#bord",             as: :bord
+  get "agenda"           => "pages#agenda",           as: :agenda
   get "over"             => "pages#over",             as: :over
 
   # Captive portal redirects for Android, Apple, Windows, and Linux connectivity checks
