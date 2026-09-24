@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Buurtbox" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="application-name" content="Buurtbox">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+
+    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="bg-[#01242e] text-white min-h-screen">
+
+    <%# Desktop sidebar — hidden on mobile %>
+    <aside class="hidden sm:flex flex-col w-52 min-h-screen bg-[#01242e] border-r border-white/10 fixed top-0 left-0 z-40 py-7 px-5">
+      <%= link_to root_path, class: "block mb-10" do %>
+        <%= image_tag "logo.svg", alt: "Buurtbox", class: "w-full h-auto max-w-[152px]" %>
+      <% end %>
+
+      <nav class="flex flex-col gap-0.5 text-sm">
+        <%= link_to root_path,
+              class: "flex items-center gap-2.5 px-3 py-2 rounded transition-colors #{current_page?(root_path) ? 'text-[#e8874a] bg-[#e8874a]/10 font-semibold' : 'text-white/60 hover:text-white hover:bg-white/5'}" do %>
+          <span>📌</span><span>Berichten</span>
+        <% end %>
+        <%= link_to bibliotheek_path,
+              class: "flex items-center gap-2.5 px-3 py-2 rounded transition-colors #{current_page?(bibliotheek_path) ? 'text-[#e8874a] bg-[#e8874a]/10 font-semibold' : 'text-white/60 hover:text-white hover:bg-white/5'}" do %>
+          <span>📚</span><span>Bibliotheek</span>
+        <% end %>
+        <%= link_to bestanden_delen_path,
+              class: "flex items-center gap-2.5 px-3 py-2 rounded transition-colors #{current_page?(bestanden_delen_path) ? 'text-[#e8874a] bg-[#e8874a]/10 font-semibold' : 'text-white/60 hover:text-white hover:bg-white/5'}" do %>
+          <span>⚡</span><span>Bestanden Delen</span>
+        <% end %>
+        <%= link_to over_path,
+              class: "flex items-center gap-2.5 px-3 py-2 rounded transition-colors #{current_page?(over_path) ? 'text-[#e8874a] bg-[#e8874a]/10 font-semibold' : 'text-white/60 hover:text-white hover:bg-white/5'}" do %>
+          <span>ℹ️</span><span>Over Buurtbox</span>
+        <% end %>
+      </nav>
+    </aside>
+
+    <%# Content wrapper — offset right of sidebar on desktop %>
+    <div class="sm:ml-52 flex flex-col min-h-screen">
+
+      <%# Mobile header with logo %>
+      <header class="sm:hidden bg-[#01242e] border-b border-white/10 px-4 py-3 sticky top-0 z-50">
+        <%= link_to root_path do %>
+          <%= image_tag "logo.svg", alt: "Buurtbox", class: "h-8 w-auto" %>
+        <% end %>
+      </header>
+
+      <%# Main content %>
+      <main class="flex-1 <%= content_for?(:full_height) ? 'flex flex-col' : 'px-8 py-8 max-w-2xl' %>">
+        <%= yield %>
+      </main>
+
+      <%# Mobile bottom tab bar %>
+      <nav class="sm:hidden fixed bottom-0 inset-x-0 bg-[#01242e] border-t border-white/10 flex z-50 text-xs">
+        <%= link_to root_path,
+              class: "flex-1 flex flex-col items-center pt-2 pb-2.5 gap-0.5 font-medium transition-colors #{current_page?(root_path) ? 'text-[#e8874a]' : 'text-white/50'}" do %>
+          <span class="text-base leading-none">📌</span>
+          <span>Berichten</span>
+        <% end %>
+        <%= link_to bibliotheek_path,
+              class: "flex-1 flex flex-col items-center pt-2 pb-2.5 gap-0.5 font-medium transition-colors #{current_page?(bibliotheek_path) ? 'text-[#e8874a]' : 'text-white/50'}" do %>
+          <span class="text-base leading-none">📚</span>
+          <span>Bibliotheek</span>
+        <% end %>
+        <%= link_to bestanden_delen_path,
+              class: "flex-1 flex flex-col items-center pt-2 pb-2.5 gap-0.5 font-medium transition-colors #{current_page?(bestanden_delen_path) ? 'text-[#e8874a]' : 'text-white/50'}" do %>
+          <span class="text-base leading-none">⚡</span>
+          <span>Bestanden</span>
+        <% end %>
+        <%= link_to over_path,
+              class: "flex-1 flex flex-col items-center pt-2 pb-2.5 gap-0.5 font-medium transition-colors #{current_page?(over_path) ? 'text-[#e8874a]' : 'text-white/50'}" do %>
+          <span class="text-base leading-none">ℹ️</span>
+          <span>Over</span>
+        <% end %>
+      </nav>
+
+      <%# Spacer so mobile content clears the bottom nav %>
+      <div class="h-14 sm:hidden"></div>
+    </div>
+  </body>
+</html>

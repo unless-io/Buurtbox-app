@@ -1,0 +1,11 @@
+<article id="<%= dom_id post %>" class="bg-white/5 border border-white/10 p-4">
+  <% if post.title.present? %>
+    <h3 class="font-semibold text-white mb-1"><%= post.title %></h3>
+  <% end %>
+  <p class="text-white/80 text-sm leading-relaxed whitespace-pre-wrap"><%= post.content %></p>
+  <footer class="mt-3 flex items-center gap-2 text-xs text-white/35">
+    <span class="font-medium text-white/50"><%= post.author %></span>
+    <span>&middot;</span>
+    <time datetime="<%= post.created_at.iso8601 %>"><%= post.created_at.strftime("%-d %b %H:%M") %></time>
+  </footer>
+</article>
