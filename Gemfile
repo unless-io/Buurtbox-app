@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
-gem "rails", "~> 8.1.2"
+gem "rails", "~> 8.1.4"
 # json 3.x broke the two-argument JSON.parse call used by ActiveSupport / Action Cable
 gem "json", "~> 2.7"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
